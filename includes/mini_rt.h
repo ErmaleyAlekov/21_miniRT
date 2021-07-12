@@ -8,61 +8,61 @@
 # include <stdio.h>
 # define EPSILON 0.0000001f
 
-typedef struct			s_vector
+typedef struct s_vector
 {
 	double	x;
 	double	y;
 	double	z;
-}						t_vector;
+}	t_vector;
 
-typedef struct			s_color
+typedef struct s_color
 {
 	double	r;
 	double	g;
 	double	b;
-}						t_color;
+}	t_color;
 
-typedef struct			s_save_data
+typedef struct s_save_data
 {
 	double		a;
 	double		b;
 	double		c;
 	double		radius;
 	t_vector	pos1;
-}						t_save;
+}	t_save;
 
-typedef struct			s_light
+typedef struct s_light
 {
 	t_vector		pos;
 	double			intensity;
 	t_color			color;
 	t_save			save;
 	struct s_light	*next;
-}						t_light;
+}	t_light;
 
-typedef struct			s_ray
+typedef struct s_ray
 {
 	t_vector	start;
 	t_vector	dir;
-}						t_ray;
+}	t_ray;
 
-typedef struct			s_material
+typedef struct s_material
 {
 	t_color	rgb;
 	double	reflect;
-}						t_mat;
+}	t_mat;
 
-typedef struct			s_sphere
+typedef struct s_sphere
 {
 	t_vector		pos;
 	t_mat			mat;
 	t_ray			r;
 	double			radius;
 	t_save			save;
-	struct s_sphere *next;
-}						t_sphere;
+	struct s_sphere	*next;
+}	t_sphere;
 
-typedef struct			s_cylinder
+typedef struct s_cylinder
 {
 	t_vector			pos;
 	t_vector			ori;
@@ -85,9 +85,9 @@ typedef struct			s_cylinder
 	t_vector			n;
 	t_ray				r;
 	struct s_cylinder	*next;
-}						t_cylinder;
+}	t_cylinder;
 
-typedef struct			s_plane
+typedef struct s_plane
 {
 	t_vector		pos;
 	t_vector		ori;
@@ -96,17 +96,17 @@ typedef struct			s_plane
 	t_save			save;
 	t_vector		n;
 	struct s_plane	*next;
-}						t_plane;
+}	t_plane;
 
-typedef struct			s_camera
+typedef struct s_camera
 {
 	t_vector		pos;
 	t_vector		dir;
 	double			fov;
 	struct s_camera	*next;
-}						t_cam;
+}	t_cam;
 
-typedef struct			s_mini_rt
+typedef struct s_mini_rt
 {
 	double		ali;
 	double		rcoef;
@@ -146,7 +146,7 @@ typedef struct			s_mini_rt
 	t_vector	scaled;
 	t_ray		r;
 	t_mat		*ret;
-}						t_mrt;
+}	t_mrt;
 
 unsigned int			ft_strlen(char const *str);
 void					ft_putstr_fd(char *s, int fd);
@@ -205,13 +205,13 @@ void					parsing_cylinder(t_mrt *mrt, char *str);
 void					parsing_light(t_mrt *mrt, char *str);
 void					parsing_sphere(t_mrt *mrt, char *str);
 void					parsing_plane(t_mrt *mrt, char *str);
-int					raytracer_sp(t_mrt *mrt, t_ray *r,
+int						raytracer_sp(t_mrt *mrt, t_ray *r,
 							double *t, int level);
-int					raytracer_cy(t_mrt *mrt, t_ray *r, double *t);
-int					raytracer_tr(t_mrt *mrt, t_ray *r, double *t);
-int					raytracer_sq(t_mrt *mrt, t_ray *r, double *t);
-int					raytracer_pl(t_mrt *mrt, t_ray *r, double *t);
-int					raytracer_di(t_mrt *mrt, t_ray *r, double *t);
+int						raytracer_cy(t_mrt *mrt, t_ray *r, double *t);
+int						raytracer_tr(t_mrt *mrt, t_ray *r, double *t);
+int						raytracer_sq(t_mrt *mrt, t_ray *r, double *t);
+int						raytracer_pl(t_mrt *mrt, t_ray *r, double *t);
+int						raytracer_di(t_mrt *mrt, t_ray *r, double *t);
 int						reading_file(t_mrt *mrt, int fd);
 int						raytracing(t_mrt *mrt);
 int						rgb_manage(double r, double g, double b);
