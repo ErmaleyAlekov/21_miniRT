@@ -26,7 +26,7 @@ static void	check_error_sphere(t_mstr *mstr)
 	if (mstr->error == 1 || mstr->cur_sp->radius < 0)
 	{
 		mstr->error = 1;
-		ft_putstr_fd("Error parsing sphere\n", 1);
+		printf("Error parsing sphere\n");
 	}
 }
 

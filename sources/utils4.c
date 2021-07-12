@@ -65,13 +65,12 @@ int	ft_atoi(const char *str)
 	return (n * p);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
 
-	if (!s)
-		return ;
 	i = 0;
-	while (s[i])
-		write(fd, &s[i++], 1);
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return (s1[i] - s2[i]);
 }

@@ -30,3 +30,23 @@ void	check_vec_error_inf(t_mstr *mstr, t_vec v1, t_vec v2,
 	if (v3.x == 1.0 / 0.0 || v3.y == 1.0 / 0.0 || v3.z == 1.0 / 0.0)
 		mstr->error = 1;
 }
+
+int	check_args(int argc, char *argv)
+{
+	if (argc < 2)
+	{
+		printf("Error, Please choose a .rt file\n");
+		return (-1);
+	}
+	if (ft_strcmp(argv, "uterese") == 0)
+	{
+		printf("I`m glade to see you daddy!\n");
+		return (-1);
+	}
+	if (argc > 2)
+	{
+		printf("Error, Too many arguments\n");
+		return (-1);
+	}
+	return (0);
+}

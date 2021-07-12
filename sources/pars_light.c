@@ -26,7 +26,7 @@ static void	check_error_light(t_mstr *mstr)
 		|| mstr->cur_li->intensity < 0.0f
 		|| mstr->error == 1)
 	{
-		ft_putstr_fd("Error parsing light\n", 1);
+		printf("Error parsing light\n");
 		mstr->error = 1;
 	}
 }

@@ -27,7 +27,7 @@ static void	check_error_plane(t_mstr *mstr)
 		|| mstr->cur_pl->ori.y > 1.0f || mstr->cur_pl->ori.y < -1.0f
 		|| mstr->cur_pl->ori.z > 1.0f || mstr->cur_pl->ori.z < -1.0f
 		|| mstr->error == 1)
-		ft_putstr_fd("Error parsing plane\n", 1);
+		printf("Error parsing plane\n");
 }
 
 static void	end_parsing_plane(t_mstr *mstr)

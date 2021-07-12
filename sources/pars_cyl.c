@@ -33,7 +33,7 @@ static void	check_error_cylinder(t_mstr *mstr)
 		|| mstr->error == 1)
 	{
 		mstr->error = 1;
-		ft_putstr_fd("Error parsing cylinder\n", 1);
+		printf("Error parsing cylinder\n");
 	}
 }
 

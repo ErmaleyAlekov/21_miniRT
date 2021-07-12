@@ -149,7 +149,8 @@ typedef struct s_main_str
 }	t_mstr;
 
 unsigned int			ft_strlen(char const *str);
-void					ft_putstr_fd(char *s, int fd);
+int						ft_strcmp(char *s1, char *s2);
+int						check_args(int argc, char *argv);
 int						ft_atoi(const char *str);
 double					ft_atof(char *str);
 void					check_light(t_mat *ret, t_vec n,
@@ -181,8 +182,6 @@ t_cylinder				*cy_lstnew(void);
 int						cy_lstsize(t_cylinder *lst);
 double					deg2rad(double deg);
 int						exit_prog(t_mstr *mstr);
-int						find_closest_sp(float discr, double c,
-							double b, double *t);
 int						handle_key(int key_code, t_mstr *mstr);
 int						handle_mouse(int key_code, int x, int y, t_mstr *mstr);
 void					li_lstadd_front(t_light **alst, t_light *new);
@@ -214,7 +213,7 @@ int						rtc_pl(t_mstr *mstr, t_ray *r, double *t);
 int						rtc_di(t_mstr *mstr, t_ray *r, double *t);
 int						read_file(t_mstr *mstr, int fd);
 int						raytracing(t_mstr *mstr);
-int						rgb_manage(double r, double g, double b);
+int						rgb_mng(double r, double g, double b);
 void					sp_lstadd_back(t_sphere **alst, t_sphere *new);
 void					sp_lstadd_front(t_sphere **alst, t_sphere *new);
 t_sphere				*sp_lstlast(t_sphere *lst);

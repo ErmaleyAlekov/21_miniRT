@@ -30,7 +30,7 @@ static unsigned int	rgb_hex(int rgb[4])
 	return (argb);
 }
 
-int	rgb_manage(double r, double g, double b)
+int	rgb_mng(double r, double g, double b)
 {
 	int	rgb[4];
 

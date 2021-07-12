@@ -29,7 +29,7 @@ static void	check_error(t_mstr *mstr)
 		|| (mstr->cur_cam->dir.x == 0 && mstr->cur_cam->dir.y == 0
 			&& mstr->cur_cam->dir.z == 0))
 	{
-		ft_putstr_fd("Error parsing camera\n", 1);
+		printf("Error parsing camera\n");
 		mstr->error = 1;
 	}
 }

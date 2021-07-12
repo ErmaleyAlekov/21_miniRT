@@ -13,7 +13,7 @@ static void	check_error_amb(t_mstr *mstr)
 	if (mstr->ali == -1 || mstr->ali > 1.0f || mstr->ali < 0.0f
 		|| mstr->error == 1)
 	{
-		ft_putstr_fd("Error parsing ambient light\n", 1);
+		printf("Error parsing ambient light\n");
 		mstr->error = 1;
 	}
 }

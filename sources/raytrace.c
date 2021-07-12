@@ -74,7 +74,7 @@ int	raytracing(t_mstr *mstr)
 					break ;
 			}
 			*(int *)(mstr->img_data + (x * 4 + (mstr->img_size * y)))
-				= rgb_manage(mstr->tmpr, mstr->tmpg, mstr->tmpb);
+				= rgb_mng(mstr->tmpr, mstr->tmpg, mstr->tmpb);
 		}
 	}
 	rtc_end(mstr);

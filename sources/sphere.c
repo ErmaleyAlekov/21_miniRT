@@ -1,5 +1,19 @@
 #include "../includes/mini_rt.h"
 
+static int	find_closest_sp(float discr, double c, double b, double *t)
+{
+	discr = sqrt(discr);
+	c = (-b + discr) / 2;
+	b = (-b - discr) / 2;
+	if (c > b)
+		c = b;
+	if ((c > 0.001f) && (c < *t))
+		*t = c;
+	else
+		return (0);
+	return (1);
+}
+
 static int	intersect_sphere(t_ray *r, t_sphere *s, double *t, int level)
 {
 	double		b;
@@ -17,20 +31,6 @@ static int	intersect_sphere(t_ray *r, t_sphere *s, double *t, int level)
 		return (0);
 	else
 		return (find_closest_sp(discr, c, b, t));
-}
-
-int	find_closest_sp(float discr, double c, double b, double *t)
-{
-	discr = sqrt(discr);
-	c = (-b + discr) / 2;
-	b = (-b - discr) / 2;
-	if (c > b)
-		c = b;
-	if ((c > 0.001f) && (c < *t))
-		*t = c;
-	else
-		return (0);
-	return (1);
 }
 
 static int	check_sphere(t_mstr *mstr, double *t, t_sphere *ret)

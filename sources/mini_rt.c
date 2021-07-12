@@ -4,8 +4,8 @@ void	create_window(t_mstr *mstr)
 {
 	if (mstr->error == 0 && (mstr->ali == -1 || mstr->cam == NULL))
 	{
-		ft_putstr_fd("Error, Ambient light or ", 1);
-		ft_putstr_fd("Camera are missing\n", 1);
+		printf("Error, Ambient light or ");
+		printf("Camera are missing\n");
 		exit_prog(mstr);
 		return ;
 	}
@@ -67,21 +67,6 @@ int	read_file(t_mstr *mstr, int fd)
 	return (ret);
 }
 
-static int	check_args(int argc)
-{
-	if (argc < 2)
-	{
-		ft_putstr_fd("Please choose a .rt file\n", 1);
-		return (-1);
-	}
-	if (argc > 2)
-	{
-		ft_putstr_fd("Too many arguments\n", 1);
-		return (-1);
-	}
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	int		fd;
@@ -89,19 +74,19 @@ int	main(int argc, char **argv)
 	int		len;
 
 	mstr.img_ptr = NULL;
-	if ((check_args(argc)) == -1)
+	if ((check_args(argc, argv[1])) == -1)
 		return (-1);
 	len = ft_strlen(argv[1]);
 	if (len < 4 || argv[1][len - 1] != 't' || argv[1][len - 2] != 'r'
 		|| argv[1][len - 3] != '.')
 	{
-		ft_putstr_fd("Please choose a valid .rt file\n", 1);
+		printf("Error, Please choose a valid .rt file\n");
 		return (-1);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("Error opening file\n", 1);
+		printf("Error opening file\n");
 		return (-1);
 	}
 	if (read_file(&mstr, fd) == -1 || mstr.error == 1)
