@@ -1,82 +1,82 @@
 #include "../includes/mini_rt.h"
 
-static void	init_inner_loop(t_mrt *mrt, int *level, int x, int y)
+static void	init_inner_loop(t_mstr *mstr, int *level, int x, int y)
 {
 	*level = -1;
-	mrt->new_start.z = -1;
-	mrt->new_start.x = (2 * (x + 0.5) / mrt->rx - 1)
-		* mrt->win_ratio * mrt->win_scale;
-	mrt->new_start.y = (1 - 2 * (y + 0.5) / mrt->ry) * mrt->win_scale;
-	compute_camera(mrt, mrt->new_start.x, mrt->new_start.y);
-	mrt->new_start.x += mrt->cur_cam->pos.x;
-	mrt->new_start.y += mrt->cur_cam->pos.y;
-	mrt->new_start.z = mrt->cur_cam->pos.z;
-	mrt->tmpr = mrt->argb.r;
-	mrt->tmpg = mrt->argb.g;
-	mrt->tmpb = mrt->argb.b;
-	mrt->rcoef = 1.0f;
+	mstr->new_start.z = -1;
+	mstr->new_start.x = (2 * (x + 0.5) / mstr->rx - 1)
+		* mstr->win_ratio * mstr->win_scale;
+	mstr->new_start.y = (1 - 2 * (y + 0.5) / mstr->ry) * mstr->win_scale;
+	compute_camera(mstr, mstr->new_start.x, mstr->new_start.y);
+	mstr->new_start.x += mstr->cur_cam->pos.x;
+	mstr->new_start.y += mstr->cur_cam->pos.y;
+	mstr->new_start.z = mstr->cur_cam->pos.z;
+	mstr->tmpr = mstr->argb.r;
+	mstr->tmpg = mstr->argb.g;
+	mstr->tmpb = mstr->argb.b;
+	mstr->rcoef = 1.0f;
 }
 
-static int	img_to_window(t_mrt *mrt)
+static int	img_to_window(t_mstr *mstr)
 {
-	mlx_put_image_to_window(mrt->mlx_ptr, mrt->win_ptr, mrt->img_ptr, 0, 0);
+	mlx_put_image_to_window(mstr->mlx_ptr, mstr->win_ptr, mstr->img_ptr, 0, 0);
 	return (1);
 }
 
-static int	raytracer_end(t_mrt *mrt)
+static int	rtc_end(t_mstr *mstr)
 {
-	img_to_window(mrt);
-	mlx_hook(mrt->win_ptr, 17, 1L << 17, exit_prog, mrt);
-	mlx_hook(mrt->win_ptr, 15, 1L << 16, img_to_window, mrt);
-	mlx_key_hook(mrt->win_ptr, handle_key, mrt);
-	mlx_mouse_hook(mrt->win_ptr, handle_mouse, mrt);
-	mlx_loop(mrt->mlx_ptr);
-	mrt->first_call = 0;
+	img_to_window(mstr);
+	mlx_hook(mstr->win_ptr, 17, 1L << 17, exit_prog, mstr);
+	mlx_hook(mstr->win_ptr, 15, 1L << 16, img_to_window, mstr);
+	mlx_key_hook(mstr->win_ptr, handle_key, mstr);
+	mlx_mouse_hook(mstr->win_ptr, handle_mouse, mstr);
+	mlx_loop(mstr->mlx_ptr);
+	mstr->first_call = 0;
 	return (1);
 }
 
-static void	call_obj(t_mrt *mrt, double *t, int level)
+static void	call_obj(t_mstr *mstr, double *t, int level)
 {
 	*t = 1.0 / 0.0;
-	mrt->ret = NULL;
-	mrt->r.start = mrt->new_start;
-	mrt->r.dir = mrt->new_dir;
-	if (mrt->sp != NULL)
-		raytracer_sp(mrt, &mrt->r, t, level);
-	if (mrt->cy != NULL)
-		raytracer_cy(mrt, &mrt->r, t);
-	if (mrt->pl != NULL)
-		raytracer_pl(mrt, &mrt->r, t);
-	if (mrt->ret == NULL)
+	mstr->ret = NULL;
+	mstr->r.start = mstr->new_start;
+	mstr->r.dir = mstr->new_dir;
+	if (mstr->sp != NULL)
+		rtc_sp(mstr, &mstr->r, t, level);
+	if (mstr->cy != NULL)
+		rtc_cy(mstr, &mstr->r, t);
+	if (mstr->pl != NULL)
+		rtc_pl(mstr, &mstr->r, t);
+	if (mstr->ret == NULL)
 		return ;
-	check_light(mrt->ret, mrt->n, mrt, t);
+	check_light(mstr->ret, mstr->n, mstr, t);
 }
 
-int	raytracing(t_mrt *mrt)
+int	raytracing(t_mstr *mstr)
 {
 	int			x;
 	int			y;
 	double		t;
 	int			level;
 
-	compute_all(mrt);
+	compute_all(mstr);
 	y = -1;
-	while (++y < mrt->ry)
+	while (++y < mstr->ry)
 	{
 		x = -1;
-		while (++x < mrt->rx)
+		while (++x < mstr->rx)
 		{
-			init_inner_loop(mrt, &level, x, y);
-			while (++level < 15 && mrt->rcoef > 0.0f)
+			init_inner_loop(mstr, &level, x, y);
+			while (++level < 15 && mstr->rcoef > 0.0f)
 			{
-				call_obj(mrt, &t, level);
-				if (mrt->ret == NULL)
+				call_obj(mstr, &t, level);
+				if (mstr->ret == NULL)
 					break ;
 			}
-			*(int *)(mrt->img_data + (x * 4 + (mrt->img_size * y)))
-				= rgb_manage(mrt->tmpr, mrt->tmpg, mrt->tmpb);
+			*(int *)(mstr->img_data + (x * 4 + (mstr->img_size * y)))
+				= rgb_manage(mstr->tmpr, mstr->tmpg, mstr->tmpb);
 		}
 	}
-	raytracer_end(mrt);
+	rtc_end(mstr);
 	return (1);
 }

@@ -7,9 +7,9 @@ static int	intersect_plane(t_plane *ret, t_ray *r, double *t)
 	double		b;
 	double		dist;
 
-	denom = -vector_dot(ret->pos, ret->n);
-	a = vector_dot(ret->n, r->start) + denom;
-	b = vector_dot(r->dir, ret->n);
+	denom = -vec_dot(ret->pos, ret->n);
+	a = vec_dot(ret->n, r->start) + denom;
+	b = vec_dot(r->dir, ret->n);
 	dist = -(a / b);
 	if (dist > EPSILON && dist < *t)
 	{
@@ -19,25 +19,25 @@ static int	intersect_plane(t_plane *ret, t_ray *r, double *t)
 	return (0);
 }
 
-int	raytracer_pl(t_mrt *mrt, t_ray *r, double *t)
+int	rtc_pl(t_mstr *mstr, t_ray *r, double *t)
 {
 	t_plane	*ret;
 
-	mrt->cur_pl = mrt->pl;
+	mstr->cur_pl = mstr->pl;
 	ret = NULL;
-	while (mrt->cur_pl)
+	while (mstr->cur_pl)
 	{
-		mrt->cur_pl->r.start = r->start;
-		mrt->cur_pl->r.dir = r->dir;
-		if ((intersect_plane(mrt->cur_pl, &mrt->cur_pl->r, t)) == 1)
-			ret = mrt->cur_pl;
-		mrt->cur_pl = mrt->cur_pl->next;
+		mstr->cur_pl->r.start = r->start;
+		mstr->cur_pl->r.dir = r->dir;
+		if ((intersect_plane(mstr->cur_pl, &mstr->cur_pl->r, t)) == 1)
+			ret = mstr->cur_pl;
+		mstr->cur_pl = mstr->cur_pl->next;
 	}
 	if (ret != NULL)
 	{
-		mrt->new_start = vector_add(ret->r.start, vector_scale(*t, ret->r.dir));
-		mrt->n = vector_normalize(ret->n);
-		mrt->ret = &ret->mat;
+		mstr->new_start = vec_add(ret->r.start, vec_scale(*t, ret->r.dir));
+		mstr->n = vec_normalize(ret->n);
+		mstr->ret = &ret->mat;
 		return (1);
 	}
 	return (0);

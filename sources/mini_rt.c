@@ -1,65 +1,65 @@
 #include "../includes/mini_rt.h"
 
-void	create_window(t_mrt *mrt)
+void	create_window(t_mstr *mstr)
 {
-	if (mrt->error == 0 && (mrt->ali == -1 || mrt->cam == NULL))
+	if (mstr->error == 0 && (mstr->ali == -1 || mstr->cam == NULL))
 	{
 		ft_putstr_fd("Error, Ambient light or ", 1);
 		ft_putstr_fd("Camera are missing\n", 1);
-		exit_prog(mrt);
+		exit_prog(mstr);
 		return ;
 	}
-	mrt->mlx_ptr = mlx_init();
-	mrt->win_ptr = NULL;
-	mrt->win_ptr = mlx_new_window(mrt->mlx_ptr, mrt->rx, mrt->ry,
+	mstr->mlx_ptr = mlx_init();
+	mstr->win_ptr = NULL;
+	mstr->win_ptr = mlx_new_window(mstr->mlx_ptr, mstr->rx, mstr->ry,
 			"MiniRT");
-	if (mrt->win_ptr)
-		mrt->error = -1;
-	mrt->cur_cam = mrt->cam;
-	mrt->cur_li = mrt->li;
+	if (mstr->win_ptr)
+		mstr->error = -1;
+	mstr->cur_cam = mstr->cam;
+	mstr->cur_li = mstr->li;
 }
 
-void	parsing_hub(t_mrt *mrt, char *str)
+void	parsing_id(t_mstr *mstr, char *str)
 {
 	if (str[0] == 'A' && str[1] == ' ')
-		parsing_amb(mrt, str);
+		parsing_amb(mstr, str);
 	else if (str[0] == 'c' && str[1] == 'y' && str[2] == ' ')
-		parsing_cylinder(mrt, str);
+		parsing_cylinder(mstr, str);
 	else if (str[0] == 'c' && str[1] == ' ')
-		parsing_camera(mrt, str);
+		parsing_camera(mstr, str);
 	else if (str[0] == 'l' && str[1] == ' ')
-		parsing_light(mrt, str);
+		parsing_light(mstr, str);
 	else if (str[0] == 's' && str[1] == 'p' && str[2] == ' ')
-		parsing_sphere(mrt, str);
+		parsing_sphere(mstr, str);
 	else if (str[0] == 'p' && str[1] == 'l' && str[2] == ' ')
-		parsing_plane(mrt, str);
-	if (mrt->rx > mrt->ry)
-		mrt->win_ratio = mrt->rx / mrt->ry;
+		parsing_plane(mstr, str);
+	if (mstr->rx > mstr->ry)
+		mstr->win_ratio = mstr->rx / mstr->ry;
 	else
-		mrt->win_ratio = mrt->ry / mrt->rx;
+		mstr->win_ratio = mstr->ry / mstr->rx;
 }
 
-int	reading_file(t_mrt *mrt, int fd)
+int	read_file(t_mstr *mstr, int fd)
 {
 	char	*line;
 	int		ret;
 
-	mrt->error = 0;
-	mrt->rx = 1920;
-	mrt->ry = 1160;
-	mrt->cam = 0;
-	mrt->li = 0;
-	mrt->sp = 0;
-	mrt->pl = 0;
-	mrt->cy = 0;
-	mrt->ali = -1;
+	mstr->error = 0;
+	mstr->rx = 1920;
+	mstr->ry = 1160;
+	mstr->cam = 0;
+	mstr->li = 0;
+	mstr->sp = 0;
+	mstr->pl = 0;
+	mstr->cy = 0;
+	mstr->ali = -1;
 	ret = 0;
-	color_init(&mrt->argb);
+	color_init(&mstr->argb);
 	while (ret != -1)
 	{
 		ret = get_next_line(fd, &line);
-		if (mrt->error == 0)
-			parsing_hub(mrt, line);
+		if (mstr->error == 0)
+			parsing_id(mstr, line);
 		free(line);
 		if (ret == 0)
 			break ;
@@ -85,10 +85,10 @@ static int	check_args(int argc)
 int	main(int argc, char **argv)
 {
 	int		fd;
-	t_mrt	mrt;
+	t_mstr	mstr;
 	int		len;
 
-	mrt.img_ptr = NULL;
+	mstr.img_ptr = NULL;
 	if ((check_args(argc)) == -1)
 		return (-1);
 	len = ft_strlen(argv[1]);
@@ -104,9 +104,9 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error opening file\n", 1);
 		return (-1);
 	}
-	if (reading_file(&mrt, fd) == -1 || mrt.error == 1)
-		exit_prog(&mrt);
-	create_window(&mrt);
-	raytracing(&mrt);
+	if (read_file(&mstr, fd) == -1 || mstr.error == 1)
+		exit_prog(&mstr);
+	create_window(&mstr);
+	raytracing(&mstr);
 	return (0);
 }

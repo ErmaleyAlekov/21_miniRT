@@ -1,8 +1,8 @@
 #include "../includes/mini_rt.h"
 
-t_vector	vector_divide(t_vector v1, t_vector v2)
+t_vec	vec_divide(t_vec v1, t_vec v2)
 {
-	t_vector	ret;
+	t_vec	ret;
 
 	ret.x = 0;
 	ret.y = 0;
@@ -16,9 +16,9 @@ t_vector	vector_divide(t_vector v1, t_vector v2)
 	return (ret);
 }
 
-t_vector	vector_sub(t_vector v1, t_vector v2)
+t_vec	vec_sub(t_vec v1, t_vec v2)
 {
-	t_vector	result;
+	t_vec	result;
 
 	result.x = v1.x - v2.x;
 	result.y = v1.y - v2.y;
@@ -26,9 +26,9 @@ t_vector	vector_sub(t_vector v1, t_vector v2)
 	return (result);
 }
 
-t_vector	vector_cross(t_vector v1, t_vector v2)
+t_vec	vec_cross(t_vec v1, t_vec v2)
 {
-	t_vector	ret;
+	t_vec	ret;
 
 	ret.x = v1.y * v2.z - v1.z * v2.y;
 	ret.y = v1.z * v2.x - v1.x * v2.z;
@@ -36,14 +36,14 @@ t_vector	vector_cross(t_vector v1, t_vector v2)
 	return (ret);
 }
 
-double	vector_dot(t_vector v1, t_vector v2)
+double	vec_dot(t_vec v1, t_vec v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-t_vector	vector_scale(double c, t_vector v)
+t_vec	vec_scale(double c, t_vec v)
 {
-	t_vector	result;
+	t_vec	result;
 
 	result.x = v.x * c;
 	result.y = v.y * c;

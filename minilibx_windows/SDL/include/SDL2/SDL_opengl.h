@@ -1095,9 +1095,9 @@ extern "C" {
 /* reuse GL_HIGH_INT */
 /* reuse GL_SHADER_COMPILER */
 /* reuse GL_NUM_SHADER_BINARY_FORMATS */
-/* reuse GL_MAX_VERTEX_UNIFORM_VECTORS */
-/* reuse GL_MAX_VARYING_VECTORS */
-/* reuse GL_MAX_FRAGMENT_UNIFORM_VECTORS */
+/* reuse GL_MAX_VERTEX_UNIFORM_vecS */
+/* reuse GL_MAX_VARYING_vecS */
+/* reuse GL_MAX_FRAGMENT_UNIFORM_vecS */
 /* Reuse tokens from ARB_get_program_binary */
 /* reuse GL_PROGRAM_BINARY_RETRIEVABLE_HINT */
 /* reuse GL_PROGRAM_BINARY_LENGTH */
@@ -2114,9 +2114,9 @@ extern "C" {
 #define GL_HIGH_INT                       0x8DF5
 #define GL_SHADER_COMPILER                0x8DFA
 #define GL_NUM_SHADER_BINARY_FORMATS      0x8DF9
-#define GL_MAX_VERTEX_UNIFORM_VECTORS     0x8DFB
-#define GL_MAX_VARYING_VECTORS            0x8DFC
-#define GL_MAX_FRAGMENT_UNIFORM_VECTORS   0x8DFD
+#define GL_MAX_VERTEX_UNIFORM_vecS     0x8DFB
+#define GL_MAX_VARYING_vecS            0x8DFC
+#define GL_MAX_FRAGMENT_UNIFORM_vecS   0x8DFD
 #endif
 
 #ifndef GL_ARB_get_program_binary
@@ -3067,8 +3067,8 @@ extern "C" {
 #define GL_OPERAND2_ALPHA_EXT             0x859A
 #endif
 
-#ifndef GL_APPLE_specular_vector
-#define GL_LIGHT_MODEL_SPECULAR_VECTOR_APPLE 0x85B0
+#ifndef GL_APPLE_specular_vec
+#define GL_LIGHT_MODEL_SPECULAR_vec_APPLE 0x85B0
 #endif
 
 #ifndef GL_APPLE_transform_hint
@@ -3900,7 +3900,7 @@ extern "C" {
 #define GL_OUTPUT_TEXTURE_COORD31_EXT     0x87BC
 #define GL_OUTPUT_FOG_EXT                 0x87BD
 #define GL_SCALAR_EXT                     0x87BE
-#define GL_VECTOR_EXT                     0x87BF
+#define GL_vec_EXT                     0x87BF
 #define GL_MATRIX_EXT                     0x87C0
 #define GL_VARIANT_EXT                    0x87C1
 #define GL_INVARIANT_EXT                  0x87C2
@@ -8301,8 +8301,8 @@ typedef void (APIENTRYP PFNGLBINORMALPOINTEREXTPROC) (GLenum type, GLsizei strid
 #define GL_EXT_texture_env_combine 1
 #endif
 
-#ifndef GL_APPLE_specular_vector
-#define GL_APPLE_specular_vector 1
+#ifndef GL_APPLE_specular_vec
+#define GL_APPLE_specular_vec 1
 #endif
 
 #ifndef GL_APPLE_transform_hint

@@ -1,88 +1,88 @@
 #include "../includes/mini_rt.h"
 
-static void	init_plane(t_mrt *mrt)
+static void	init_plane(t_mstr *mstr)
 {
-	if (mrt->pl == NULL)
+	if (mstr->pl == NULL)
 	{
-		mrt->pl = pl_lstnew();
-		mrt->cur_pl = mrt->pl;
+		mstr->pl = pl_lstnew();
+		mstr->cur_pl = mstr->pl;
 	}
 	else
 	{
-		pl_lstadd_back(&mrt->pl, pl_lstnew());
-		mrt->cur_pl = mrt->cur_pl->next;
+		pl_lstadd_back(&mstr->pl, pl_lstnew());
+		mstr->cur_pl = mstr->cur_pl->next;
 	}
-	vector_init_inf(&mrt->cur_pl->pos);
-	vector_init_inf(&mrt->cur_pl->ori);
-	color_init(&mrt->cur_pl->mat.rgb);
-	mrt->cur_pl->mat.reflect = -1;
+	vec_init_inf(&mstr->cur_pl->pos);
+	vec_init_inf(&mstr->cur_pl->ori);
+	color_init(&mstr->cur_pl->mat.rgb);
+	mstr->cur_pl->mat.reflect = -1;
 }
 
-static void	check_error_plane(t_mrt *mrt)
+static void	check_error_plane(t_mstr *mstr)
 {
-	check_vector_error_inf(mrt, mrt->cur_pl->pos,
-		mrt->cur_pl->ori, mrt->cur_pl->pos);
-	check_color_error(mrt, mrt->cur_pl->mat.rgb);
-	if (mrt->cur_pl->ori.x > 1.0f || mrt->cur_pl->ori.x < -1.0f
-		|| mrt->cur_pl->ori.y > 1.0f || mrt->cur_pl->ori.y < -1.0f
-		|| mrt->cur_pl->ori.z > 1.0f || mrt->cur_pl->ori.z < -1.0f
-		|| mrt->error == 1)
+	check_vec_error_inf(mstr, mstr->cur_pl->pos,
+		mstr->cur_pl->ori, mstr->cur_pl->pos);
+	check_color_error(mstr, mstr->cur_pl->mat.rgb);
+	if (mstr->cur_pl->ori.x > 1.0f || mstr->cur_pl->ori.x < -1.0f
+		|| mstr->cur_pl->ori.y > 1.0f || mstr->cur_pl->ori.y < -1.0f
+		|| mstr->cur_pl->ori.z > 1.0f || mstr->cur_pl->ori.z < -1.0f
+		|| mstr->error == 1)
 		ft_putstr_fd("Error parsing plane\n", 1);
 }
 
-static void	end_parsing_plane(t_mrt *mrt)
+static void	end_parsing_plane(t_mstr *mstr)
 {
-	if (mrt->cur_pl->mat.reflect == -1)
-		mrt->cur_pl->mat.reflect = 0;
-	mrt->cur_pl->mat.rgb.r /= 255.0f;
-	mrt->cur_pl->mat.rgb.g /= 255.0f;
-	mrt->cur_pl->mat.rgb.b /= 255.0f;
-	mrt->cur_pl->n = mrt->cur_pl->ori;
-	mrt->cur_pl->n = vector_normalize(mrt->cur_pl->n);
+	if (mstr->cur_pl->mat.reflect == -1)
+		mstr->cur_pl->mat.reflect = 0;
+	mstr->cur_pl->mat.rgb.r /= 255.0f;
+	mstr->cur_pl->mat.rgb.g /= 255.0f;
+	mstr->cur_pl->mat.rgb.b /= 255.0f;
+	mstr->cur_pl->n = mstr->cur_pl->ori;
+	mstr->cur_pl->n = vec_normalize(mstr->cur_pl->n);
 }
 
-static void	parsing_plane2(t_mrt *mrt, char *str, int i)
+static void	parsing_plane2(t_mstr *mstr, char *str, int i)
 {
-	if (mrt->cur_pl->pos.z == 1.0 / 0.0)
-		mrt->cur_pl->pos.z = ft_atof(str + i);
-	else if (mrt->cur_pl->ori.x == 1.0 / 0.0)
-		mrt->cur_pl->ori.x = ft_atof(str + i);
-	else if (mrt->cur_pl->ori.y == 1.0 / 0.0)
-		mrt->cur_pl->ori.y = ft_atof(str + i);
-	else if (mrt->cur_pl->ori.z == 1.0 / 0.0)
-		mrt->cur_pl->ori.z = ft_atof(str + i);
-	else if (mrt->cur_pl->mat.rgb.r == -1)
-		mrt->cur_pl->mat.rgb.r = ft_atof(str + i);
-	else if (mrt->cur_pl->mat.rgb.g == -1)
-		mrt->cur_pl->mat.rgb.g = ft_atof(str + i);
-	else if (mrt->cur_pl->mat.rgb.b == -1)
-		mrt->cur_pl->mat.rgb.b = ft_atof(str + i);
+	if (mstr->cur_pl->pos.z == 1.0 / 0.0)
+		mstr->cur_pl->pos.z = ft_atof(str + i);
+	else if (mstr->cur_pl->ori.x == 1.0 / 0.0)
+		mstr->cur_pl->ori.x = ft_atof(str + i);
+	else if (mstr->cur_pl->ori.y == 1.0 / 0.0)
+		mstr->cur_pl->ori.y = ft_atof(str + i);
+	else if (mstr->cur_pl->ori.z == 1.0 / 0.0)
+		mstr->cur_pl->ori.z = ft_atof(str + i);
+	else if (mstr->cur_pl->mat.rgb.r == -1)
+		mstr->cur_pl->mat.rgb.r = ft_atof(str + i);
+	else if (mstr->cur_pl->mat.rgb.g == -1)
+		mstr->cur_pl->mat.rgb.g = ft_atof(str + i);
+	else if (mstr->cur_pl->mat.rgb.b == -1)
+		mstr->cur_pl->mat.rgb.b = ft_atof(str + i);
 }
 
-void	parsing_plane(t_mrt *mrt, char *str)
+void	parsing_plane(t_mstr *mstr, char *str)
 {
 	int	i;
 
 	i = 0;
-	init_plane(mrt);
+	init_plane(mstr);
 	while (str[i])
 	{
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 'r' || str[i] == '-')
 		{
-			if (str[i] == 'r' && mrt->cur_pl->mat.reflect == -1)
-				mrt->cur_pl->mat.reflect = ft_atof(str + i);
-			else if (mrt->cur_pl->pos.x == 1.0 / 0.0)
-				mrt->cur_pl->pos.x = ft_atof(str + i);
-			else if (mrt->cur_pl->pos.y == 1.0 / 0.0)
-				mrt->cur_pl->pos.y = ft_atof(str + i);
+			if (str[i] == 'r' && mstr->cur_pl->mat.reflect == -1)
+				mstr->cur_pl->mat.reflect = ft_atof(str + i);
+			else if (mstr->cur_pl->pos.x == 1.0 / 0.0)
+				mstr->cur_pl->pos.x = ft_atof(str + i);
+			else if (mstr->cur_pl->pos.y == 1.0 / 0.0)
+				mstr->cur_pl->pos.y = ft_atof(str + i);
 			else
-				parsing_plane2(mrt, str, i);
+				parsing_plane2(mstr, str, i);
 			while (str[i] && (str[i] != ' ' && str[i] != ',' && str[i] != '	'))
 				i++;
 		}
 		if (str[i])
 			i++;
 	}
-	check_error_plane(mrt);
-	end_parsing_plane(mrt);
+	check_error_plane(mstr);
+	end_parsing_plane(mstr);
 }

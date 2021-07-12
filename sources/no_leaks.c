@@ -1,33 +1,33 @@
 #include "../includes/mini_rt.h"
 
-static void	free_objects(t_mrt *mrt)
+static void	free_objects(t_mstr *mstr)
 {
-	while (mrt->sp)
+	while (mstr->sp)
 	{
-		mrt->cur_sp = mrt->sp;
-		mrt->sp = mrt->sp->next;
-		free(mrt->cur_sp);
-		mrt->cur_sp = NULL;
+		mstr->cur_sp = mstr->sp;
+		mstr->sp = mstr->sp->next;
+		free(mstr->cur_sp);
+		mstr->cur_sp = NULL;
 	}
-	while (mrt->pl)
+	while (mstr->pl)
 	{
-		mrt->cur_pl = mrt->pl;
-		mrt->pl = mrt->pl->next;
-		free(mrt->cur_pl);
-		mrt->cur_pl = NULL;
+		mstr->cur_pl = mstr->pl;
+		mstr->pl = mstr->pl->next;
+		free(mstr->cur_pl);
+		mstr->cur_pl = NULL;
 	}
-	while (mrt->cy)
+	while (mstr->cy)
 	{
-		mrt->cur_cy = mrt->cy;
-		mrt->cy = mrt->cy->next;
-		free(mrt->cur_cy);
-		mrt->cur_cy = NULL;
+		mstr->cur_cy = mstr->cy;
+		mstr->cy = mstr->cy->next;
+		free(mstr->cur_cy);
+		mstr->cur_cy = NULL;
 	}
 }
 
-void	no_leaks(t_mrt *mrt)
+void	no_leaks(t_mstr *mstr)
 {
-	if (mrt->mlx_ptr && mrt->win_ptr)
-		mlx_destroy_window(mrt->mlx_ptr, mrt->win_ptr);
-	free_objects(mrt);
+	if (mstr->mlx_ptr && mstr->win_ptr)
+		mlx_destroy_window(mstr->mlx_ptr, mstr->win_ptr);
+	free_objects(mstr);
 }

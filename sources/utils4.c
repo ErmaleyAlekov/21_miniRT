@@ -1,8 +1,8 @@
 #include "../includes/mini_rt.h"
 
-t_vector	new_vec3(double x, double y, double z)
+t_vec	new_vec3(double x, double y, double z)
 {
-	t_vector	ret;
+	t_vec	ret;
 
 	ret.x = x;
 	ret.y = y;

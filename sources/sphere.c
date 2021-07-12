@@ -4,14 +4,14 @@ static int	intersect_sphere(t_ray *r, t_sphere *s, double *t, int level)
 {
 	double		b;
 	double		c;
-	t_vector	dist;
+	t_vec		dist;
 	float		discr;
 
 	if (level)
-		s->save.a = vector_dot(s->r.dir, s->r.dir);
-	dist = vector_sub(r->start, s->pos);
-	b = 2 * vector_dot(r->dir, dist);
-	c = vector_dot(dist, dist) - (s->radius * s->radius);
+		s->save.a = vec_dot(s->r.dir, s->r.dir);
+	dist = vec_sub(r->start, s->pos);
+	b = 2 * vec_dot(r->dir, dist);
+	c = vec_dot(dist, dist) - (s->radius * s->radius);
 	discr = b * b - 4 * s->save.a * c;
 	if (discr < 0)
 		return (0);
@@ -33,44 +33,44 @@ int	find_closest_sp(float discr, double c, double b, double *t)
 	return (1);
 }
 
-static int	check_sphere(t_mrt *mrt, double *t, t_sphere *ret)
+static int	check_sphere(t_mstr *mstr, double *t, t_sphere *ret)
 {
 	double		tmp;
 
 	tmp = *t;
-	mrt->scaled = vector_scale(*t, ret->r.dir);
-	mrt->new_start = vector_add(ret->r.start, mrt->scaled);
-	mrt->n = vector_sub(mrt->new_start, ret->pos);
-	*t = vector_dot(mrt->n, mrt->n);
+	mstr->scaled = vec_scale(*t, ret->r.dir);
+	mstr->new_start = vec_add(ret->r.start, mstr->scaled);
+	mstr->n = vec_sub(mstr->new_start, ret->pos);
+	*t = vec_dot(mstr->n, mstr->n);
 	if (*t == 0)
 	{
 		*t = tmp;
 		return (0);
 	}
 	*t = 1.0f / sqrt(*t);
-	mrt->n = vector_scale(*t, mrt->n);
-	mrt->ret = &ret->mat;
-	mrt->n = vector_normalize(mrt->n);
+	mstr->n = vec_scale(*t, mstr->n);
+	mstr->ret = &ret->mat;
+	mstr->n = vec_normalize(mstr->n);
 	return (1);
 }
 
-int	raytracer_sp(t_mrt *mrt, t_ray *r, double *t, int level)
+int	rtc_sp(t_mstr *mstr, t_ray *r, double *t, int level)
 {
 	t_sphere	*ret;
 
-	mrt->cur_sp = mrt->sp;
+	mstr->cur_sp = mstr->sp;
 	ret = NULL;
-	while (mrt->cur_sp)
+	while (mstr->cur_sp)
 	{
-		mrt->cur_sp->r.start = r->start;
-		mrt->cur_sp->r.dir = r->dir;
-		mrt->cur_sp->save.a = vector_dot(mrt->cur_sp->r.dir,
-				mrt->cur_sp->r.dir);
-		if (intersect_sphere(&mrt->cur_sp->r, mrt->cur_sp, t, level) == 1)
-			ret = mrt->cur_sp;
-		mrt->cur_sp = mrt->cur_sp->next;
+		mstr->cur_sp->r.start = r->start;
+		mstr->cur_sp->r.dir = r->dir;
+		mstr->cur_sp->save.a = vec_dot(mstr->cur_sp->r.dir,
+				mstr->cur_sp->r.dir);
+		if (intersect_sphere(&mstr->cur_sp->r, mstr->cur_sp, t, level) == 1)
+			ret = mstr->cur_sp;
+		mstr->cur_sp = mstr->cur_sp->next;
 	}
 	if (ret != NULL)
-		return ((check_sphere(mrt, t, ret)));
+		return ((check_sphere(mstr, t, ret)));
 	return (0);
 }

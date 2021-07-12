@@ -8,12 +8,12 @@
 # include <stdio.h>
 # define EPSILON 0.0000001f
 
-typedef struct s_vector
+typedef struct s_vec
 {
 	double	x;
 	double	y;
 	double	z;
-}	t_vector;
+}	t_vec;
 
 typedef struct s_color
 {
@@ -28,12 +28,12 @@ typedef struct s_save_data
 	double		b;
 	double		c;
 	double		radius;
-	t_vector	pos1;
+	t_vec		pos1;
 }	t_save;
 
 typedef struct s_light
 {
-	t_vector		pos;
+	t_vec			pos;
 	double			intensity;
 	t_color			color;
 	t_save			save;
@@ -42,8 +42,8 @@ typedef struct s_light
 
 typedef struct s_ray
 {
-	t_vector	start;
-	t_vector	dir;
+	t_vec	start;
+	t_vec	dir;
 }	t_ray;
 
 typedef struct s_material
@@ -54,7 +54,7 @@ typedef struct s_material
 
 typedef struct s_sphere
 {
-	t_vector		pos;
+	t_vec			pos;
 	t_mat			mat;
 	t_ray			r;
 	double			radius;
@@ -64,8 +64,8 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	t_vector			pos;
-	t_vector			ori;
+	t_vec				pos;
+	t_vec				ori;
 	short int			cap;
 	double				radius;
 	double				h;
@@ -73,40 +73,40 @@ typedef struct s_cylinder
 	double				t0;
 	double				t1;
 	double				dist;
-	t_vector			n1;
-	t_vector			hit1;
-	t_vector			hit2;
-	t_vector			hit3;
-	t_vector			top;
-	t_vector			bot;
-	t_vector			i;
-	t_vector			o;
+	t_vec				n1;
+	t_vec				hit1;
+	t_vec				hit2;
+	t_vec				hit3;
+	t_vec				top;
+	t_vec				bot;
+	t_vec				i;
+	t_vec				o;
 	t_mat				mat;
-	t_vector			n;
+	t_vec				n;
 	t_ray				r;
 	struct s_cylinder	*next;
 }	t_cylinder;
 
 typedef struct s_plane
 {
-	t_vector		pos;
-	t_vector		ori;
+	t_vec			pos;
+	t_vec			ori;
 	t_mat			mat;
 	t_ray			r;
 	t_save			save;
-	t_vector		n;
+	t_vec			n;
 	struct s_plane	*next;
 }	t_plane;
 
 typedef struct s_camera
 {
-	t_vector		pos;
-	t_vector		dir;
+	t_vec			pos;
+	t_vec			dir;
 	double			fov;
 	struct s_camera	*next;
 }	t_cam;
 
-typedef struct s_mini_rt
+typedef struct s_main_str
 {
 	double		ali;
 	double		rcoef;
@@ -139,96 +139,96 @@ typedef struct s_mini_rt
 	t_light		*li;
 	t_cam		*cam;
 	t_cam		*cur_cam;
-	t_vector	dist;
-	t_vector	n;
-	t_vector	new_dir;
-	t_vector	new_start;
-	t_vector	scaled;
+	t_vec		dist;
+	t_vec		n;
+	t_vec		new_dir;
+	t_vec		new_start;
+	t_vec		scaled;
 	t_ray		r;
 	t_mat		*ret;
-}	t_mrt;
+}	t_mstr;
 
 unsigned int			ft_strlen(char const *str);
 void					ft_putstr_fd(char *s, int fd);
 int						ft_atoi(const char *str);
 double					ft_atof(char *str);
-void					check_light(t_mat *ret, t_vector n,
-							t_mrt *mrt, double *t);
-double					calc_dist_fabs(t_vector v1, t_vector v2);
-double					calc_dist(t_vector v1, t_vector v2);
-t_vector				calc_v_dir(t_vector	rdir);
-t_vector				calc_w_dir(t_vector rdir, t_vector u);
+void					check_light(t_mat *ret, t_vec n,
+							t_mstr *mstr, double *t);
+double					calc_dist_fabs(t_vec v1, t_vec v2);
+double					calc_dist(t_vec v1, t_vec v2);
+t_vec					calc_v_dir(t_vec	rdir);
+t_vec					calc_w_dir(t_vec rdir, t_vec u);
 void					cam_lstadd_front(t_cam **alst, t_cam *new);
 void					cam_lstadd_back(t_cam **alst, t_cam *new);
 t_cam					*cam_lstlast(t_cam *lst);
 t_cam					*cam_lstnew(void);
 int						cam_lstsize(t_cam *lst);
-void					check_vector_error(t_mrt *mrt, t_vector v1,
-							t_vector v2, t_vector v3);
-void					check_vector_error_inf(t_mrt *mrt,
-							t_vector v1, t_vector v2, t_vector v3);
-void					check_color_error(t_mrt *mrt, t_color col);
+void					check_vec_error(t_mstr *mstr, t_vec v1,
+							t_vec v2, t_vec v3);
+void					check_vec_error_inf(t_mstr *mstr,
+							t_vec v1, t_vec v2, t_vec v3);
+void					check_color_error(t_mstr *mstr, t_color col);
 void					color_init(t_color *rgb);
-void					compute_all(t_mrt *mrt);
-void					compute_camera(t_mrt *mrt, double x, double y);
-void					compute_pl(t_mrt *mrt);
+void					compute_all(t_mstr *mstr);
+void					compute_camera(t_mstr *mstr, double x, double y);
+void					compute_pl(t_mstr *mstr);
 unsigned int			create_rgb(int r, int g, int b);
-void					create_window(t_mrt *mrt);
+void					create_window(t_mstr *mstr);
 void					cy_lstadd_front(t_cylinder **alst, t_cylinder *new);
 void					cy_lstadd_back(t_cylinder **alst, t_cylinder *new);
 t_cylinder				*cy_lstlast(t_cylinder *lst);
 t_cylinder				*cy_lstnew(void);
 int						cy_lstsize(t_cylinder *lst);
 double					deg2rad(double deg);
-int						exit_prog(t_mrt *mrt);
+int						exit_prog(t_mstr *mstr);
 int						find_closest_sp(float discr, double c,
 							double b, double *t);
-int						handle_key(int key_code, t_mrt *mrt);
-int						handle_mouse(int key_code, int x, int y, t_mrt *mrt);
+int						handle_key(int key_code, t_mstr *mstr);
+int						handle_mouse(int key_code, int x, int y, t_mstr *mstr);
 void					li_lstadd_front(t_light **alst, t_light *new);
 void					li_lstadd_back(t_light **alst, t_light *new);
 t_light					*li_lstlast(t_light *lst);
 t_light					*li_lstnew(void);
 unsigned int			min(double a, double b);
-void					no_leaks(t_mrt *mrt);
-t_vector				new_vec3(double x, double y, double z);
+void					no_leaks(t_mstr *mstr);
+t_vec					new_vec3(double x, double y, double z);
 int						li_lstsize(t_light *lst);
 void					pl_lstadd_front(t_plane **alst, t_plane *new);
 void					pl_lstadd_back(t_plane **alst, t_plane *new);
 t_plane					*pl_lstlast(t_plane *lst);
 t_plane					*pl_lstnew(void);
 int						pl_lstsize(t_plane *lst);
-void					parsing_hub(t_mrt *mrt, char *str);
-void					parsing_amb(t_mrt *mrt, char *str);
-void					parsing_camera(t_mrt *mrt, char *str);
-void					parsing_cylinder(t_mrt *mrt, char *str);
-void					parsing_light(t_mrt *mrt, char *str);
-void					parsing_sphere(t_mrt *mrt, char *str);
-void					parsing_plane(t_mrt *mrt, char *str);
-int						raytracer_sp(t_mrt *mrt, t_ray *r,
+void					parsing_id(t_mstr *mstr, char *str);
+void					parsing_amb(t_mstr *mstr, char *str);
+void					parsing_camera(t_mstr *mstr, char *str);
+void					parsing_cylinder(t_mstr *mstr, char *str);
+void					parsing_light(t_mstr *mstr, char *str);
+void					parsing_sphere(t_mstr *mstr, char *str);
+void					parsing_plane(t_mstr *mstr, char *str);
+int						rtc_sp(t_mstr *mstr, t_ray *r,
 							double *t, int level);
-int						raytracer_cy(t_mrt *mrt, t_ray *r, double *t);
-int						raytracer_tr(t_mrt *mrt, t_ray *r, double *t);
-int						raytracer_sq(t_mrt *mrt, t_ray *r, double *t);
-int						raytracer_pl(t_mrt *mrt, t_ray *r, double *t);
-int						raytracer_di(t_mrt *mrt, t_ray *r, double *t);
-int						reading_file(t_mrt *mrt, int fd);
-int						raytracing(t_mrt *mrt);
+int						rtc_cy(t_mstr *mstr, t_ray *r, double *t);
+int						rtc_tr(t_mstr *mstr, t_ray *r, double *t);
+int						rtc_sq(t_mstr *mstr, t_ray *r, double *t);
+int						rtc_pl(t_mstr *mstr, t_ray *r, double *t);
+int						rtc_di(t_mstr *mstr, t_ray *r, double *t);
+int						read_file(t_mstr *mstr, int fd);
+int						raytracing(t_mstr *mstr);
 int						rgb_manage(double r, double g, double b);
 void					sp_lstadd_back(t_sphere **alst, t_sphere *new);
 void					sp_lstadd_front(t_sphere **alst, t_sphere *new);
 t_sphere				*sp_lstlast(t_sphere *lst);
 t_sphere				*sp_lstnew(void);
 int						sp_lstsize(t_sphere *lst);
-t_vector				vector_add(t_vector v1, t_vector v2);
-t_vector				vector_cross(t_vector v1, t_vector v2);
-t_vector				vector_divide(t_vector v1, t_vector v2);
-void					vector_init(t_vector *v1);
-void					vector_init_inf(t_vector *v1);
-t_vector				vector_add(t_vector v1, t_vector v2);
-double					vector_dot(t_vector v1, t_vector v2);
-t_vector				vector_normalize(t_vector v1);
-t_vector				vector_scale(double c, t_vector v);
-t_vector				vector_sub(t_vector v1, t_vector v2);
+t_vec					vec_add(t_vec v1, t_vec v2);
+t_vec					vec_cross(t_vec v1, t_vec v2);
+t_vec					vec_divide(t_vec v1, t_vec v2);
+void					vec_init(t_vec *v1);
+void					vec_init_inf(t_vec *v1);
+t_vec					vec_add(t_vec v1, t_vec v2);
+double					vec_dot(t_vec v1, t_vec v2);
+t_vec					vec_normalize(t_vec v1);
+t_vec					vec_scale(double c, t_vec v);
+t_vec					vec_sub(t_vec v1, t_vec v2);
 int						get_next_line(int fd, char **line);
 #endif

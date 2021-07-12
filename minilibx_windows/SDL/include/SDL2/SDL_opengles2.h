@@ -613,12 +613,12 @@ typedef khronos_ssize_t  GLsizeiptr;
 #define GL_FRAGMENT_SHADER                  0x8B30
 #define GL_VERTEX_SHADER                    0x8B31
 #define GL_MAX_VERTEX_ATTRIBS               0x8869
-#define GL_MAX_VERTEX_UNIFORM_VECTORS       0x8DFB
-#define GL_MAX_VARYING_VECTORS              0x8DFC
+#define GL_MAX_VERTEX_UNIFORM_vecS       0x8DFB
+#define GL_MAX_VARYING_vecS              0x8DFC
 #define GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS 0x8B4D
 #define GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS   0x8B4C
 #define GL_MAX_TEXTURE_IMAGE_UNITS          0x8872
-#define GL_MAX_FRAGMENT_UNIFORM_VECTORS     0x8DFD
+#define GL_MAX_FRAGMENT_UNIFORM_vecS     0x8DFD
 #define GL_SHADER_TYPE                      0x8B4F
 #define GL_DELETE_STATUS                    0x8B80
 #define GL_LINK_STATUS                      0x8B82

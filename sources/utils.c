@@ -1,8 +1,8 @@
 #include "../includes/mini_rt.h"
 
-t_vector	vector_add(t_vector v1, t_vector v2)
+t_vec	vec_add(t_vec v1, t_vec v2)
 {
-	t_vector	result;
+	t_vec	result;
 
 	result.x = v1.x + v2.x;
 	result.y = v1.y + v2.y;
@@ -10,12 +10,12 @@ t_vector	vector_add(t_vector v1, t_vector v2)
 	return (result);
 }
 
-t_vector	vector_normalize(t_vector v1)
+t_vec	vec_normalize(t_vec v1)
 {
 	float		norm;
-	t_vector	result;
+	t_vec		result;
 
-	norm = fabs(sqrt(vector_dot(v1, v1)));
+	norm = fabs(sqrt(vec_dot(v1, v1)));
 	result.x = v1.x / norm;
 	result.y = v1.y / norm;
 	result.z = v1.z / norm;
