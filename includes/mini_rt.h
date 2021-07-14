@@ -155,7 +155,6 @@ int						ft_atoi(const char *str);
 double					ft_atof(char *str);
 void					check_light(t_mat *ret, t_vec n,
 							t_mstr *mstr, double *t);
-double					calc_dist_fabs(t_vec v1, t_vec v2);
 double					calc_dist(t_vec v1, t_vec v2);
 t_vec					calc_v_dir(t_vec	rdir);
 t_vec					calc_w_dir(t_vec rdir, t_vec u);
