@@ -39,8 +39,8 @@ ifeq ($(UNAME),Darwin)
 	LOAD_DYLIB = install_name_tool -change $(MLX_NAME) $(DIR)/$(MLX_LIB) $(NAME)
 	SRC = $(addprefix $(DIRSRC)/, \
 			check_error.c get_next_line.c light.c cylinder.c \
-		  plane.c sphere.c init.c lst_camera.c \
-		  lst_light.c lst_plane.c lst_sphere.c lst_cylinder.c \
+		  plane.c sphere.c init.c lists1.c \
+		  lists2.c \
 		  mini_rt.c utils.c utils2.c utils3.c \
 		  utils4.c no_leaks.c pars_amb.c pars_cam.c \
 		  pars_cyl.c pars_light.c pars_pl.c \
@@ -55,8 +55,8 @@ ifeq ($(UNAME),Linux)
 	MLX_LIB = $(MLX_PATH)/$(MLX_NAME)
 	SRC = $(addprefix $(DIRSRC)/, \
 			check_error.c get_next_line.c light.c cylinder.c \
-		  plane.c sphere.c init.c lst_camera.c \
-		  lst_light.c lst_plane.c lst_sphere.c lst_cylinder.c \
+		  plane.c sphere.c init.c lists1.c \
+		  lists2.c \
 		  mini_rt.c utils.c utils2.c utils3.c \
 		  utils4.c no_leaks.c pars_amb.c pars_cam.c \
 		  pars_cyl.c pars_light.c pars_pl.c \
@@ -73,8 +73,8 @@ ifeq ($(OS),Windows_NT)
 	LOAD_DYLIB = cp $(MLX_PATH)/*.dll ../
 	SRC = $(addprefix $(DIRSRC)/, \
 			check_error.c get_next_line.c light.c cylinder.c \
-		  plane.c sphere.c init.c lst_camera.c \
-		  lst_light.c lst_plane.c lst_sphere.c lst_cylinder.c \
+		  plane.c sphere.c init.c lists1.c \
+		  lists2.c \
 		  mini_rt.c utils.c utils2.c utils3.c \
 		  utils4.c no_leaks.c pars_amb.c pars_cam.c \
 		  pars_cyl.c pars_light.c pars_pl.c \
