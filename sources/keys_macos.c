@@ -49,12 +49,12 @@ int	handle_mouse(int key_code, int x, int y, t_mstr *mstr)
 	y = x;
 	if (key_code == 4)
 	{
-		mstr->cur_cam->pos.z -= 3;
+		mstr->cur_cam->pos.z -= 5;
 		raytracing(mstr);
 	}
 	else if (key_code == 5)
 	{
-		mstr->cur_cam->pos.z += 3;
+		mstr->cur_cam->pos.z += 5;
 		raytracing(mstr);
 	}
 	return (1);

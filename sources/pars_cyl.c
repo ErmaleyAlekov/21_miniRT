@@ -15,7 +15,7 @@ static void	init_cylinder(t_mstr *mstr)
 	vec_init_inf(&mstr->cur_cy->pos);
 	vec_init_inf(&mstr->cur_cy->ori);
 	color_init(&mstr->cur_cy->mat.rgb);
-	mstr->cur_cy->mat.reflect = -1;
+	mstr->cur_cy->mat.reflect = 0.4;
 	mstr->cur_cy->h = 1.0 / 0.0;
 	mstr->cur_cy->radius = 1.0 / 0.0;
 }
@@ -39,8 +39,6 @@ static void	check_error_cylinder(t_mstr *mstr)
 
 static void	end_parsing_cylinder(t_mstr *mstr)
 {
-	if (mstr->cur_cy->mat.reflect == -1)
-		mstr->cur_cy->mat.reflect = 0;
 	mstr->cur_cy->mat.rgb.r /= 255.0f;
 	mstr->cur_cy->mat.rgb.g /= 255.0f;
 	mstr->cur_cy->mat.rgb.b /= 255.0f;
@@ -78,11 +76,9 @@ void	parsing_cylinder(t_mstr *mstr, char *str)
 	init_cylinder(mstr);
 	while (str[i])
 	{
-		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 'r' || str[i] == '-')
+		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')
 		{
-			if (str[i] == 'r' && mstr->cur_cy->mat.reflect == -1)
-				mstr->cur_cy->mat.reflect = ft_atof(str + i);
-			else if (mstr->cur_cy->pos.x == 1.0 / 0.0)
+			if (mstr->cur_cy->pos.x == 1.0 / 0.0)
 				mstr->cur_cy->pos.x = ft_atof(str + i);
 			else if (mstr->cur_cy->pos.y == 1.0 / 0.0)
 				mstr->cur_cy->pos.y = ft_atof(str + i);

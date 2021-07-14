@@ -15,7 +15,7 @@ static void	init_sphere(t_mstr *mstr)
 	vec_init_inf(&mstr->cur_sp->pos);
 	color_init(&mstr->cur_sp->mat.rgb);
 	mstr->cur_sp->radius = -1;
-	mstr->cur_sp->mat.reflect = -1;
+	mstr->cur_sp->mat.reflect = 0.4;
 }
 
 static void	check_error_sphere(t_mstr *mstr)
@@ -34,8 +34,6 @@ static void	end_parsing_sphere(t_mstr *mstr)
 {
 	mstr->cur_sp->radius /= 2;
 	mstr->cur_sp->save.radius = mstr->cur_sp->radius;
-	if (mstr->cur_sp->mat.reflect == -1)
-		mstr->cur_sp->mat.reflect = 0.0f;
 	mstr->cur_sp->mat.rgb.r /= 255.0f;
 	mstr->cur_sp->mat.rgb.g /= 255.0f;
 	mstr->cur_sp->mat.rgb.b /= 255.0f;
@@ -68,12 +66,9 @@ void	parsing_sphere(t_mstr *mstr, char *str)
 	init_sphere(mstr);
 	while (str[i])
 	{
-		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 'r' || str[i] == '-')
+		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')
 		{
-			if (str[i] == 'r' && mstr->cur_sp->mat.reflect == -1)
-				mstr->cur_sp->mat.reflect = ft_atof(str + i);
-			else
-				parsing_sphere2(mstr, str, i);
+			parsing_sphere2(mstr, str, i);
 			while (str[i] && (str[i] != ' ' && str[i] != ',' && str[i] != '	'))
 				i++;
 		}

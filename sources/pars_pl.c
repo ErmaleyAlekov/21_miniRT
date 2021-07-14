@@ -15,7 +15,7 @@ static void	init_plane(t_mstr *mstr)
 	vec_init_inf(&mstr->cur_pl->pos);
 	vec_init_inf(&mstr->cur_pl->ori);
 	color_init(&mstr->cur_pl->mat.rgb);
-	mstr->cur_pl->mat.reflect = -1;
+	mstr->cur_pl->mat.reflect = 0.4;
 }
 
 static void	check_error_plane(t_mstr *mstr)
@@ -32,8 +32,6 @@ static void	check_error_plane(t_mstr *mstr)
 
 static void	end_parsing_plane(t_mstr *mstr)
 {
-	if (mstr->cur_pl->mat.reflect == -1)
-		mstr->cur_pl->mat.reflect = 0;
 	mstr->cur_pl->mat.rgb.r /= 255.0f;
 	mstr->cur_pl->mat.rgb.g /= 255.0f;
 	mstr->cur_pl->mat.rgb.b /= 255.0f;
@@ -67,11 +65,9 @@ void	parsing_plane(t_mstr *mstr, char *str)
 	init_plane(mstr);
 	while (str[i])
 	{
-		if ((str[i] >= '0' && str[i] <= '9') || str[i] == 'r' || str[i] == '-')
+		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')
 		{
-			if (str[i] == 'r' && mstr->cur_pl->mat.reflect == -1)
-				mstr->cur_pl->mat.reflect = ft_atof(str + i);
-			else if (mstr->cur_pl->pos.x == 1.0 / 0.0)
+			if (mstr->cur_pl->pos.x == 1.0 / 0.0)
 				mstr->cur_pl->pos.x = ft_atof(str + i);
 			else if (mstr->cur_pl->pos.y == 1.0 / 0.0)
 				mstr->cur_pl->pos.y = ft_atof(str + i);

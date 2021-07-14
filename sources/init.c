@@ -30,13 +30,3 @@ void	compute_all(t_mstr *mstr)
 			&mstr->img_size, &mstr->endian);
 	mstr->win_scale = tan(deg2rad(mstr->cur_cam->fov * 0.5));
 }
-
-unsigned int	ft_strlen(char const *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
