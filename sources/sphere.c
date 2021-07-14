@@ -14,7 +14,7 @@ static int	find_closest_sp(float discr, double c, double b, double *t)
 	return (1);
 }
 
-static int	intersect_sphere(t_ray *r, t_sphere *s, double *t, int level)
+static int	intersect_sp(t_ray *r, t_sp *s, double *t, int level)
 {
 	double		b;
 	double		c;
@@ -33,7 +33,7 @@ static int	intersect_sphere(t_ray *r, t_sphere *s, double *t, int level)
 		return (find_closest_sp(discr, c, b, t));
 }
 
-static int	check_sphere(t_mstr *mstr, double *t, t_sphere *ret)
+static int	check_sphere(t_mstr *mstr, double *t, t_sp *ret)
 {
 	double		tmp;
 
@@ -56,7 +56,7 @@ static int	check_sphere(t_mstr *mstr, double *t, t_sphere *ret)
 
 int	rtc_sp(t_mstr *mstr, t_ray *r, double *t, int level)
 {
-	t_sphere	*ret;
+	t_sp	*ret;
 
 	mstr->cur_sp = mstr->sp;
 	ret = NULL;
@@ -66,7 +66,7 @@ int	rtc_sp(t_mstr *mstr, t_ray *r, double *t, int level)
 		mstr->cur_sp->r.dir = r->dir;
 		mstr->cur_sp->save.a = vec_dot(mstr->cur_sp->r.dir,
 				mstr->cur_sp->r.dir);
-		if (intersect_sphere(&mstr->cur_sp->r, mstr->cur_sp, t, level) == 1)
+		if (intersect_sp(&mstr->cur_sp->r, mstr->cur_sp, t, level) == 1)
 			ret = mstr->cur_sp;
 		mstr->cur_sp = mstr->cur_sp->next;
 	}

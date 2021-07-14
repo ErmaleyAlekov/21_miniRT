@@ -1,8 +1,8 @@
 #include "../includes/mini_rt.h"
 
-void	pl_lstadd_back(t_plane **alst, t_plane *new)
+void	pl_lstadd_back(t_pl **alst, t_pl *new)
 {
-	t_plane	*tmp;
+	t_pl	*tmp;
 
 	if (!alst || !new)
 		return ;
@@ -18,31 +18,31 @@ void	pl_lstadd_back(t_plane **alst, t_plane *new)
 	tmp->next = new;
 }
 
-t_plane	*pl_lstnew(void)
+t_pl	*pl_lstnew(void)
 {
-	t_plane	*list;
+	t_pl	*list;
 
-	list = (t_plane *)malloc(sizeof(*list));
+	list = (t_pl *)malloc(sizeof(*list));
 	if (!list)
 		return (0);
 	list->next = 0;
 	return (list);
 }
 
-t_light	*li_lstnew(void)
+t_li	*li_lstnew(void)
 {
-	t_light	*list;
+	t_li	*list;
 
-	list = (t_light *)malloc(sizeof(*list));
+	list = (t_li *)malloc(sizeof(*list));
 	if (!list)
 		return (0);
 	list->next = 0;
 	return (list);
 }
 
-void	sp_lstadd_back(t_sphere **alst, t_sphere *new)
+void	sp_lstadd_back(t_sp **alst, t_sp *new)
 {
-	t_sphere	*tmp;
+	t_sp	*tmp;
 
 	if (!alst || !new)
 		return ;
@@ -58,11 +58,11 @@ void	sp_lstadd_back(t_sphere **alst, t_sphere *new)
 	tmp->next = new;
 }
 
-t_sphere	*sp_lstnew(void)
+t_sp	*sp_lstnew(void)
 {
-	t_sphere	*list;
+	t_sp	*list;
 
-	list = (t_sphere *)malloc(sizeof(*list));
+	list = (t_sp *)malloc(sizeof(*list));
 	if (!list)
 		return (0);
 	list->next = 0;

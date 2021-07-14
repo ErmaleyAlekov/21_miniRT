@@ -1,6 +1,6 @@
 #include "../includes/mini_rt.h"
 
-static int	intersect_plane(t_plane *ret, t_ray *r, double *t)
+static int	intersect_pl(t_pl *ret, t_ray *r, double *t)
 {
 	double		denom;
 	double		a;
@@ -21,7 +21,7 @@ static int	intersect_plane(t_plane *ret, t_ray *r, double *t)
 
 int	rtc_pl(t_mstr *mstr, t_ray *r, double *t)
 {
-	t_plane	*ret;
+	t_pl	*ret;
 
 	mstr->cur_pl = mstr->pl;
 	ret = NULL;
@@ -29,7 +29,7 @@ int	rtc_pl(t_mstr *mstr, t_ray *r, double *t)
 	{
 		mstr->cur_pl->r.start = r->start;
 		mstr->cur_pl->r.dir = r->dir;
-		if ((intersect_plane(mstr->cur_pl, &mstr->cur_pl->r, t)) == 1)
+		if ((intersect_pl(mstr->cur_pl, &mstr->cur_pl->r, t)) == 1)
 			ret = mstr->cur_pl;
 		mstr->cur_pl = mstr->cur_pl->next;
 	}

@@ -1,6 +1,6 @@
 #include "../includes/mini_rt.h"
 
-static void	init_plane(t_mstr *mstr)
+static void	init_pl(t_mstr *mstr)
 {
 	if (mstr->pl == NULL)
 	{
@@ -62,7 +62,7 @@ void	parsing_plane(t_mstr *mstr, char *str)
 	int	i;
 
 	i = 0;
-	init_plane(mstr);
+	init_pl(mstr);
 	while (str[i])
 	{
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')

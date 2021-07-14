@@ -1,6 +1,6 @@
 #include "../includes/mini_rt.h"
 
-static void	init_sphere(t_mstr *mstr)
+static void	init_sp(t_mstr *mstr)
 {
 	if (!mstr->sp)
 	{
@@ -63,7 +63,7 @@ void	parsing_sphere(t_mstr *mstr, char *str)
 	int	i;
 
 	i = 0;
-	init_sphere(mstr);
+	init_sp(mstr);
 	while (str[i])
 	{
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')

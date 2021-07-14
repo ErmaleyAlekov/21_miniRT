@@ -1,6 +1,6 @@
 #include "../includes/mini_rt.h"
 
-static void	init_light(t_mstr *mstr)
+static void	init_li(t_mstr *mstr)
 {
 	if (!mstr->li)
 	{
@@ -62,7 +62,7 @@ void	parsing_light(t_mstr *mstr, char *str)
 	int	i;
 
 	i = 0;
-	init_light(mstr);
+	init_li(mstr);
 	while (str[i])
 	{
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')

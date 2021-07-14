@@ -1,6 +1,6 @@
 #include "../includes/mini_rt.h"
 
-static void	intersect_circles(double *t, t_cylinder *ret, t_ray *r)
+static void	intersect_circles(double *t, t_cyl *ret, t_ray *r)
 {
 	double	dot;
 
@@ -17,7 +17,7 @@ static void	intersect_circles(double *t, t_cylinder *ret, t_ray *r)
 		t[1] = 200000000;
 }
 
-static int	calc_t(t_cylinder *ret, t_ray *r, double *abc, double *t2)
+static int	calc_t(t_cyl *ret, t_ray *r, double *abc, double *t2)
 {
 	ret->t0 = (-abc[1] + sqrt(ret->dist)) / (2 * abc[0]);
 	ret->t1 = (-abc[1] - sqrt(ret->dist)) / (2 * abc[0]);
@@ -43,7 +43,7 @@ static int	calc_t(t_cylinder *ret, t_ray *r, double *abc, double *t2)
 	return (ret->t1);
 }
 
-static int	check_cylinder(t_mstr *mstr, t_cylinder *ret, double *t)
+static int	check_cylinder(t_mstr *mstr, t_cyl *ret, double *t)
 {
 	double	z;
 
@@ -62,7 +62,7 @@ static int	check_cylinder(t_mstr *mstr, t_cylinder *ret, double *t)
 	return (1);
 }
 
-static int	intersect_cylinder(t_mstr *mstr, t_cylinder *ret, t_ray *r,
+static int	intersect_cyl(t_mstr *mstr, t_cyl *ret, t_ray *r,
 	double *t)
 {
 	double	abc[3];
@@ -90,7 +90,7 @@ static int	intersect_cylinder(t_mstr *mstr, t_cylinder *ret, t_ray *r,
 
 int	rtc_cy(t_mstr *mstr, t_ray *r, double *t)
 {
-	t_cylinder	*ret;
+	t_cyl	*ret;
 
 	mstr->cur_cy = mstr->cy;
 	ret = NULL;
@@ -99,7 +99,7 @@ int	rtc_cy(t_mstr *mstr, t_ray *r, double *t)
 		mstr->cur_cy->r.start = r->start;
 		mstr->cur_cy->r.dir = r->dir;
 		mstr->cur_cy->cap = 0;
-		if ((intersect_cylinder(mstr, mstr->cur_cy, &mstr->cur_cy->r, t)) == 1)
+		if ((intersect_cyl(mstr, mstr->cur_cy, &mstr->cur_cy->r, t)) == 1)
 			ret = mstr->cur_cy;
 		mstr->cur_cy = mstr->cur_cy->next;
 	}

@@ -38,7 +38,7 @@ typedef struct s_light
 	t_color			color;
 	t_save			save;
 	struct s_light	*next;
-}	t_light;
+}	t_li;
 
 typedef struct s_ray
 {
@@ -60,7 +60,7 @@ typedef struct s_sphere
 	double			radius;
 	t_save			save;
 	struct s_sphere	*next;
-}	t_sphere;
+}	t_sp;
 
 typedef struct s_cylinder
 {
@@ -78,14 +78,13 @@ typedef struct s_cylinder
 	t_vec				hit2;
 	t_vec				hit3;
 	t_vec				top;
-	t_vec				bot;
 	t_vec				i;
 	t_vec				o;
 	t_mat				mat;
 	t_vec				n;
 	t_ray				r;
 	struct s_cylinder	*next;
-}	t_cylinder;
+}	t_cyl;
 
 typedef struct s_plane
 {
@@ -93,10 +92,9 @@ typedef struct s_plane
 	t_vec			ori;
 	t_mat			mat;
 	t_ray			r;
-	t_save			save;
 	t_vec			n;
 	struct s_plane	*next;
-}	t_plane;
+}	t_pl;
 
 typedef struct s_camera
 {
@@ -128,15 +126,15 @@ typedef struct s_main_str
 	void		*img_ptr;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_cylinder	*cur_cy;
-	t_cylinder	*cy;
-	t_sphere	*cur_sp;
-	t_sphere	*sp;
-	t_plane		*cur_pl;
-	t_plane		*pl;
+	t_cyl		*cur_cy;
+	t_cyl		*cy;
+	t_sp		*cur_sp;
+	t_sp		*sp;
+	t_pl		*cur_pl;
+	t_pl		*pl;
 	t_color		argb;
-	t_light		*cur_li;
-	t_light		*li;
+	t_li		*cur_li;
+	t_li		*li;
 	t_cam		*cam;
 	t_cam		*cur_cam;
 	t_vec		dist;
@@ -171,19 +169,19 @@ void					compute_camera(t_mstr *mstr, double x, double y);
 void					compute_pl(t_mstr *mstr);
 unsigned int			create_rgb(int r, int g, int b);
 void					create_window(t_mstr *mstr);
-void					cy_lstadd_back(t_cylinder **alst, t_cylinder *new);
-t_cylinder				*cy_lstnew(void);
+void					cy_lstadd_back(t_cyl **alst, t_cyl *new);
+t_cyl					*cy_lstnew(void);
 double					deg2rad(double deg);
 int						exit_prog(t_mstr *mstr);
 int						handle_key(int key_code, t_mstr *mstr);
 int						handle_mouse(int key_code, int x, int y, t_mstr *mstr);
-void					li_lstadd_back(t_light **alst, t_light *new);
-t_light					*li_lstnew(void);
+void					li_lstadd_back(t_li **alst, t_li *new);
+t_li					*li_lstnew(void);
 unsigned int			min(double a, double b);
 void					no_leaks(t_mstr *mstr);
 t_vec					new_vec3(double x, double y, double z);
-void					pl_lstadd_back(t_plane **alst, t_plane *new);
-t_plane					*pl_lstnew(void);
+void					pl_lstadd_back(t_pl **alst, t_pl *new);
+t_pl					*pl_lstnew(void);
 void					parsing_id(t_mstr *mstr, char *str);
 void					parsing_amb(t_mstr *mstr, char *str);
 void					parsing_camera(t_mstr *mstr, char *str);
@@ -201,8 +199,8 @@ int						rtc_di(t_mstr *mstr, t_ray *r, double *t);
 int						read_file(t_mstr *mstr, int fd);
 int						raytracing(t_mstr *mstr);
 int						rgb_mng(double r, double g, double b);
-void					sp_lstadd_back(t_sphere **alst, t_sphere *new);
-t_sphere				*sp_lstnew(void);
+void					sp_lstadd_back(t_sp **alst, t_sp *new);
+t_sp					*sp_lstnew(void);
 t_vec					vec_add(t_vec v1, t_vec v2);
 t_vec					vec_cross(t_vec v1, t_vec v2);
 t_vec					vec_divide(t_vec v1, t_vec v2);

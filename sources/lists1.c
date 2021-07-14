@@ -29,9 +29,9 @@ t_cam	*cam_lstnew(void)
 	return (list);
 }
 
-void	cy_lstadd_back(t_cylinder **alst, t_cylinder *new)
+void	cy_lstadd_back(t_cyl **alst, t_cyl *new)
 {
-	t_cylinder	*tmp;
+	t_cyl	*tmp;
 
 	if (!alst || !new)
 		return ;
@@ -47,20 +47,20 @@ void	cy_lstadd_back(t_cylinder **alst, t_cylinder *new)
 	tmp->next = new;
 }
 
-t_cylinder	*cy_lstnew(void)
+t_cyl	*cy_lstnew(void)
 {
-	t_cylinder	*list;
+	t_cyl	*list;
 
-	list = (t_cylinder *)malloc(sizeof(*list));
+	list = (t_cyl *)malloc(sizeof(*list));
 	if (!list)
 		return (0);
 	list->next = 0;
 	return (list);
 }
 
-void	li_lstadd_back(t_light **alst, t_light *new)
+void	li_lstadd_back(t_li **alst, t_li *new)
 {
-	t_light	*tmp;
+	t_li	*tmp;
 
 	if (!alst || !new)
 		return ;

@@ -1,6 +1,6 @@
 #include "../includes/mini_rt.h"
 
-static void	init_cylinder(t_mstr *mstr)
+static void	init_cyl(t_mstr *mstr)
 {
 	if (mstr->cy == NULL)
 	{
@@ -73,7 +73,7 @@ void	parsing_cylinder(t_mstr *mstr, char *str)
 	int	i;
 
 	i = 0;
-	init_cylinder(mstr);
+	init_cyl(mstr);
 	while (str[i])
 	{
 		if ((str[i] >= '0' && str[i] <= '9') || str[i] == '-')
