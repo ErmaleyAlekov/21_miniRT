@@ -1,21 +1,5 @@
 #include "../includes/mini_rt.h"
 
-t_vec	vec_divide(t_vec v1, t_vec v2)
-{
-	t_vec	ret;
-
-	ret.x = 0;
-	ret.y = 0;
-	ret.z = 0;
-	if (v1.x != 0 && v2.x != 0)
-		ret.x = v1.x / v2.x;
-	if (v1.y != 0 && v2.y != 0)
-		ret.y = v1.y / v2.y;
-	if (v1.z != 0 && v2.z != 0)
-		ret.z = v1.z / v2.z;
-	return (ret);
-}
-
 t_vec	vec_sub(t_vec v1, t_vec v2)
 {
 	t_vec	result;
