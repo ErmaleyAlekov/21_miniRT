@@ -109,7 +109,6 @@ $(MLX_LIB):
 
 $(OBJDIR)/%.o: $(DIRSRC)/%.c $(WAIT) $(HEADERS) $(MLX_LIB) 
 	@mkdir -p $(OBJ_PATHS)
-	@./pro_bar
 	@$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $< 
 $(WAIT):
 	@echo "$(GREEN)____________________________________________________________________"
